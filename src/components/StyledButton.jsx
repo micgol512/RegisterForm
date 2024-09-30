@@ -1,10 +1,18 @@
-const StyledButton = ({ onClick, children, type = "button", className = "" }) => {
+import styles from "./styles/StyledButton.module.css";
+const StyledButton = ({
+  onClick,
+  children,
+  type = "button",
+  color = "black",
+  backgroundColor,
+}) => {
   return (
     <>
       <button
         type={type}
         onClick={onClick}
-        className={String.raw`h-auto p-1 bg-white hover:bg-slate-500 hover:text-gray-100 styled-btn ${className}`}
+        style={{ color, backgroundColor }}
+        className={styles.button}
       >
         {children}
       </button>

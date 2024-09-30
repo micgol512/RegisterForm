@@ -1,4 +1,8 @@
+import ErrorMessage from "./ErrorMessage";
+import StyledHeader from "./StyledHeader";
 import StyledRadio from "./StyledRadio";
+import Wrapper from "./Wrapper";
+import styles from "./styles/CoursePreferences.module.css";
 
 const CoursePreferences = ({ register, errors }) => {
   const handleChange = (e) => {
@@ -9,9 +13,9 @@ const CoursePreferences = ({ register, errors }) => {
   };
   return (
     <>
-      <div className="header-neon">Preferencje Kursu</div>
-      <div className="element-wrapper relative">
-        <div className="text-gray-700 flex flex-row flex-nowrap gap-4 items-center text-sm">
+      <StyledHeader>Preferencje Kursu</StyledHeader>
+      <Wrapper>
+        <Wrapper flow="row">
           <span>Wybierz formę nauki:</span>
           <StyledRadio
             register={register}
@@ -30,25 +34,31 @@ const CoursePreferences = ({ register, errors }) => {
           >
             Zdalna
           </StyledRadio>
-        </div>
+        </Wrapper>
         <select
           {...register("cursePref")}
           id="chose-prefers"
-          className="text-gray-300 bg-slate-500 form-multiselect block w-full px-2 py-1 border border-gray-700 rounded-lg text-sm overflow-hidden"
+          className={styles.chosePref}
           multiple
           // onChange={handleChange}
         >
-          <option value="React">React</option>
-          <option value="Node.js">Node.js</option>
-          <option value="HTML">HTML</option>
-          <option value="Next.js">Next.js</option>
+          <option className={styles.options} value="React">
+            React
+          </option>
+          <option className={styles.options} value="Node.js">
+            Node.js
+          </option>
+          <option className={styles.options} value="HTML">
+            HTML
+          </option>
+          <option className={styles.options} value="Next.js">
+            Next.js
+          </option>
         </select>
         {errors?.cursePref && (
-          <p className="absolute text-left left-2 top-[125px] text-[red] text-[10px] w-full m-0 p-0 ">
-            {errors.cursePref?.message}
-          </p>
+          <ErrorMessage position={"relative"}> {errors.cursePref?.message}</ErrorMessage>
         )}
-      </div>
+      </Wrapper>
     </>
   );
 };

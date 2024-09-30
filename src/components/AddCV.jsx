@@ -1,16 +1,28 @@
 import { useState } from "react";
 import StyledButton from "./StyledButton";
+import ErrorMessage from "./ErrorMessage";
+import Wrapper from "./Wrapper";
+import styles from "./styles/AddCV.module.css";
+import StyledHeader from "./StyledHeader";
+const AddCV = ({ register, errors, setValue, clearErrors, setError }) => {
+  const [file, setFile] = useState({});
 
-const AddCV = ({ register, errors, setValue }) => {
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setValue("cv", URL.createObjectURL(file));
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    if (selectedFile) {
+      setValue("imageCV", URL.createObjectURL(e.target.files[0]));
+      clearErrors("cv");
+    } else {
+      setValue("imageCV", "");
+      setError("cv", { message: "Wybierz plik z CV CHANGE", type: "custom" });
+    }
   };
   return (
     <>
-      <div className="header-neon">Dodaj CV</div>
-      <div className="element-wrapper relative">
-        <label htmlFor="cvs" className="mb-0">
+      <StyledHeader className="header-neon">Dodaj CV</StyledHeader>
+      <Wrapper flow="relative">
+        <label htmlFor="cv" className={styles.label}>
           Załącz swoje CV w formie zdjęcia.
         </label>
         <input
@@ -19,20 +31,26 @@ const AddCV = ({ register, errors, setValue }) => {
           name="cv"
           id="cv"
           accept=".jpg,.JPG,.png,.PNG"
-          // required
+          required
           form="register-form"
-          className="text-gray-500 hidden"
+          className={styles.hidden}
           onChange={handleFileChange}
         />
-        <StyledButton onClick={() => document.getElementById("cv").click()} className="">
-          Doddaj CV
-        </StyledButton>
+        <Wrapper flow="row">
+          <StyledButton onClick={() => document.getElementById("cv").click()}>
+            Doddaj CV
+          </StyledButton>
+          <span className={styles.info}>
+            {file?.name ? `Wybrano : "${file.name}"` : "Nie wybrano pliku..."}
+          </span>
+          {/* {file ? console.log("FileKomponent:", file) : console.log("Nothing happend")} */}
+        </Wrapper>
         {errors?.cv && (
-          <p className="absolute text-left left-2 top-[72px] text-[red] text-[10px] w-full m-0 p-0 ">
+          <ErrorMessage position="relative" top="-10px">
             {errors.cv?.message}
-          </p>
+          </ErrorMessage>
         )}
-      </div>
+      </Wrapper>
     </>
   );
 };

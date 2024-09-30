@@ -1,15 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #f1f1f1;
+  background-color: #1b1b1b;
   box-sizing: border-box;
 
   font-synthesis: none;
@@ -24,17 +20,79 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  /* background-color: #333333; */
 }
 
+button {
+  border-radius: 8px;
+}
+.styled-btn {
+  padding: "0 2px";
+  margin: "0";
+  border-radius: "8px";
+  border: "1px solid";
+}
+:focus {
+  outline: none;
+  border: 1px solid #3b82f6;
+  border-radius: 0.5rem;
+}
+/* "@apply transition ease-in-out duration-150": {}
+"&:hover": {
+  backgroundColor: "#f3f4f6", // Tailwind color or hex value
+},
+"&:active": {
+  transform: "scale(0.95)",
+}, */
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #111827;
+    background-color: #f3f4f6;
   }
 }
-a {
-  color: #333333;
-  font-weight: 800;
-  text-shadow: 0px 0px 2px #ffff00;
-}
+/* 
+Stylowanie:
+1. Tło (Background)
+Główne tło: #F3F4F6 (jasny szary, aby zapewnić neutralne i czytelne tło)
+Tło formularza: #FFFFFF (czysty biały dla wyraźnego oddzielenia formularza od tła)
+2. Tekst (Text)
+Główny kolor tekstu: #111827 (ciemny szary, prawie czarny – zapewnia dobrą czytelność)
+Tekst etykiet (labels): #4B5563 (średni szary, subtelny, ale nadal dobrze widoczny)
+Tekst w polach formularza: #1F2937 (lekko ciemniejszy od tekstu etykiet)
+3. Przyciski (Button)
+Kolor przycisków: #3B82F6 (niebieski dla CTA – przyjemny dla oka i przyciągający uwagę)
+Kolor przycisków podczas najechania (hover): #2563EB (ciemniejszy niebieski dla efektu aktywności)
+Tekst na przycisku: #FFFFFF (biały, dla kontrastu i czytelności)
+4. Obramowania (Borders)
+Kolor obramowań pól formularza: #D1D5DB (jasny szary, subtelny, ale daje wyraźne oddzielenie pól)
+Kolor obramowań podczas aktywności (focus): #3B82F6 (niebieski, spójny z kolorem przycisków)
+5. Pola wyboru i przyciski radiowe (Checkbox/Radio Buttons)
+Kolor pustego pola: #D1D5DB (jasny szary)
+Kolor zaznaczenia: #3B82F6 (spójny z kolorem CTA)
+Kolor podczas hover: #2563EB (ciemniejszy niebieski)
+6. Efekty najechania (Hover States)
+Pola formularza:
+Kolor tła podczas hover: #E5E7EB (bardzo jasny szary)
+Obramowanie podczas hover: #3B82F6
+Przyciski:
+Tło podczas hover: #2563EB
+Obramowanie przycisku: #2563EB
+Kolor tekstu: #FFFFFF (bez zmian)
+7. Kolory komunikatów i błędów (Error States)
+Kolor błędu: #EF4444 (czerwony dla błędów)
+Kolor komunikatów: #F87171 (jasnoczerwony)
+Obramowanie pól z błędem: #EF4444 (czerwony)
+
+Tło główne: #F3F4F6
+Tło formularza: #FFFFFF
+Tekst główny: #111827
+Tekst etykiet: #4B5563
+Przyciski: #3B82F6
+Przyciski hover: #2563EB
+Obramowania: #D1D5DB
+Obramowanie hover/aktywne: #3B82F6
+Pola wyboru/radio: #3B82F6
+Hover dla pól: #E5E7EB
+Błędy: #EF4444
+Ten schemat bazuje na estetyce nowoczesnych, prostych interfejsów i może być dopasowany pod twoje potrzeby, np. dodając elementy brandingowe (kolory firmowe).
+
+*/

@@ -5,6 +5,7 @@ import CoursePreferences from "./CoursePreferences";
 import AddCV from "./AddCV";
 import DevExperience from "./DevExperience";
 import ResultPage from "./ResultPage";
+import Wrapper from "./Wrapper";
 
 export {
   RegisterForm,
@@ -14,4 +15,5 @@ export {
   AddCV,
   DevExperience,
   ResultPage,
+  Wrapper,
 };

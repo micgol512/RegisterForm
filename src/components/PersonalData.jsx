@@ -1,9 +1,11 @@
+import StyledHeader from "./StyledHeader";
 import InputField from "./InputField";
+import Wrapper from "./Wrapper";
 const PersonalData = ({ register, errors }) => {
   return (
     <>
-      <div className="header-neon">Dane Osobowe</div>
-      <div className="element-wrapper">
+      <StyledHeader>Dane Osobowe</StyledHeader>
+      <Wrapper>
         <InputField field={"firstName"} register={register} errors={errors}>
           Podaj imię
         </InputField>
@@ -16,7 +18,7 @@ const PersonalData = ({ register, errors }) => {
         <InputField field={"phone"} type="tel" register={register} errors={errors}>
           Podaj numer telefonu
         </InputField>
-      </div>
+      </Wrapper>
     </>
   );
 };

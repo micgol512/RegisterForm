@@ -2,6 +2,9 @@ import { useState } from "react";
 import StyledButton from "./StyledButton";
 import AddDevExperience from "./AddDevExperience";
 import { useFieldArray } from "react-hook-form";
+import ErrorMessage from "./ErrorMessage";
+import StyledHeader from "./StyledHeader";
+import Wrapper from "./Wrapper";
 
 const initialAddDevExp = {
   id: "",
@@ -25,8 +28,8 @@ const DevExperience = ({ setValue, control, register, errors }) => {
   };
   return (
     <>
-      <div className="header-neon">Doświadczenie</div>
-      <div className="element-wrapper flex-row">
+      <StyledHeader className="header-neon">Doświadczenie</StyledHeader>
+      <Wrapper flex="row">
         <label
           htmlFor="devExpCheckbox"
           className="flex flex-nowrap flex-row gap-1 items-center"
@@ -41,19 +44,20 @@ const DevExperience = ({ setValue, control, register, errors }) => {
           />
           Posiadam doświadczenie z progamowaniem.
         </label>
-      </div>
+      </Wrapper>
       {isCheck && (
         <>
-          <StyledButton onClick={() => append(initialAddDevExp)}>
-            Dodaj doświadczene
-          </StyledButton>
-          {errors?.devExp && (
-            <p className=" text-left left-2 top-[23px] text-[red] text-[10px] w-full m-0 p-0 ">
-              {errors?.devExp?.message}
-            </p>
-          )}
+          <Wrapper>
+            <StyledButton
+              backgroundColor={"#2feb00"}
+              onClick={() => append(initialAddDevExp)}
+            >
+              Dodaj doświadczene
+            </StyledButton>
+            {errors?.devExp && <ErrorMessage>{errors?.devExp?.message}</ErrorMessage>}
+          </Wrapper>
           {fields.length >= 1 && (
-            <div className="bg-gray-800 mt-[-4px] pt-2 rounded-lg">
+            <Wrapper>
               {fields.map((field, index) => {
                 setValue(`devExp.${index}.id`, field.id);
                 return (
@@ -68,11 +72,11 @@ const DevExperience = ({ setValue, control, register, errors }) => {
                   />
                 );
               })}
-            </div>
+            </Wrapper>
           )}
         </>
       )}
-      <button
+      {/* <button
         type="button"
         className="bg-slate-500"
         onClick={() => {
@@ -81,7 +85,7 @@ const DevExperience = ({ setValue, control, register, errors }) => {
         }}
       >
         Pokaż pola
-      </button>
+      </button> */}
     </>
   );
 };

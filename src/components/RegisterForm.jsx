@@ -1,3 +1,4 @@
+// import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,72 +9,13 @@ import {
   AddCV,
   DevExperience,
 } from "./index";
-import { useState } from "react";
-
-const initialAddDevExp = {
-  id: "",
-  language: "",
-  level: "",
-};
+import styles from "./styles/RegisterForm.module.css";
 
 const devExpSchema = z.object({
   id: z.string(),
   language: z.string().min(1, { message: "Wybierz opcję" }).optional(),
   level: z.string().min(1, { message: "Wybierz opcję" }).optional(),
 });
-
-const registerSchemaBase = z.object({
-  id: z.number(),
-  firstName: z
-    .string()
-    .min(3, "Imię jest za krótkie")
-    .regex(/^[A-ZĄĆĘŁŃÓŚŹŻ]/, "Imię musi zaczynać się od wielkiej litery.")
-    .regex(/^(?!.*\d)/, "Imię nie może zawierać cyfr.")
-    .regex(/^[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]+$/, "Imię nie może zawierać znaków specjalnych.")
-    .regex(
-      /^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]*$/,
-      "Imię może zawierać tylko jedną wielką literę na początku."
-    ),
-  lastName: z
-    .string()
-    .min(2, "Nazwisko jest za krótkie.")
-    .regex(/^[A-ZĄĆĘŁŃÓŚŹŻ]/, "Nazwisko musi zaczynać się od wielkiej litery.")
-    .regex(/^(?!.*\d)/, "Nazwisko nie może zawierać cyfr.")
-    .regex(
-      /^[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]+$/,
-      "Nazwisko nie może zawierać znaków specjalnych."
-    )
-    .regex(
-      /^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]*$/,
-      "Nazwisko może zawierać tylko jedną wielką literę na początku."
-    ),
-  email: z.string().email("Niepoprawny format email."),
-  phone: z
-    .string()
-    .regex(/^\d+$/, "Telefon same liczby")
-    .length(9, "Telefon musi mieć 9 znaków"),
-  typeLearning: z.string(),
-  cursePref: z.array(z.string()).min(1, "Musisz wybrać co najmniej jedną opcję."),
-  cv: z.string().min(1, { message: "Wybierz plik z CV" }),
-  // devExp: z.array(devExpSchema),
-  // // devExpCheckbox: z.boolean(),
-  // devExp: z.array(devExpSchema).optional(),
-  // devExp: z.array(devExpSchema).min(1, { message: "Trzeba doddać doświadczenie..." }),
-});
-const registerSchemaTrue = registerSchemaBase.extend({
-  devExpCheckbox: z.literal(true),
-  devExp: z
-    .array(devExpSchema)
-    .min(1, { message: "Musisz dodać co najmniej jedno doświadczenie." }),
-});
-const registerSchemaFalse = registerSchemaBase.extend({
-  devExpCheckbox: z.literal(false),
-  devExp: z.array().optional(),
-});
-// const finalSchema = z.union([registerSchemaFalse,registerSchemaTrue]).refine((data)=>!data.devExpCheckbox?data.devExp.)
-const schema = z.union([registerSchemaTrue, registerSchemaFalse]);
-
-/////////////////////////////////////
 
 const registerSchema = z
   .object({
@@ -107,18 +49,20 @@ const registerSchema = z
       .length(9, "Telefon musi mieć 9 cyfr"),
     typeLearning: z.string(),
     cursePref: z.array(z.string()).min(1, "Musisz wybrać co najmniej jedną opcję."),
-    cv: z.string().min(1, { message: "Wybierz plik z CV" }),
+    imageCV: z.string().min(1, { message: "Wybierz plik z CV IMAGE" }),
+    // cv: z.object(),
     devExpCheckbox: z.boolean(),
     devExp: z.array(devExpSchema).optional(),
+    cv: z
+      .object({})
+      .refine((obj) => Object.keys(obj).length > 0, { message: "Wybierz plik z CV OBJ" }),
   })
   .refine((data) => !data.devExpCheckbox || (data.devExp && data.devExp.length > 0), {
     path: ["devExp"],
     message: "Musisz dodać co najmniej jedno doświadczenie.",
   });
 
-/////////////////////////////////////
 const RegisterForm = ({ setUsers, amountUsers }) => {
-  const [isExpCheck, setIsExpCheck] = useState(false);
   const {
     register,
     handleSubmit,
@@ -126,6 +70,8 @@ const RegisterForm = ({ setUsers, amountUsers }) => {
     getValues,
     control,
     formState: { errors },
+    clearErrors,
+    setError,
     reset,
   } = useForm({
     resolver: zodResolver(registerSchema),
@@ -137,31 +83,31 @@ const RegisterForm = ({ setUsers, amountUsers }) => {
       phone: "",
       typeLearning: "",
       cursePref: [],
-      cv: "",
+      imageCV: "",
       devExpCheckbox: false,
       devExp: [],
+      cv: {},
     },
   });
   const onSubmit = (data) => {
     //   data.preventDefault();
-    // console.log("Dane z EVENTU:", e.target);
-    console.log(data);
-
     setUsers([data]);
-    // setUsers((prev) => [...prev, data]);
+    // setUsers((prev) => [...prev, data]); //set it for array of users
     reset();
   };
   return (
     <>
-      <form
-        id="register-form"
-        // onSubmit={onSubmit}
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-stretch justify-stretch gap-1 p-1 rounded-lg w-[370px] border-double border-gray-700 border-2"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <PersonalData register={register} errors={errors} />
         <CoursePreferences register={register} errors={errors} />
-        <AddCV register={register} errors={errors} setValue={setValue} />
+        <AddCV
+          register={register}
+          errors={errors}
+          setValue={setValue}
+          getValues={getValues}
+          clearErrors={clearErrors}
+          setError={setError}
+        />
         <DevExperience
           register={register}
           errors={errors}
@@ -170,9 +116,8 @@ const RegisterForm = ({ setUsers, amountUsers }) => {
         />
         <StyledButton type="submit">Wyślij</StyledButton>
       </form>
-      {/* <button type="button" onClick={}></button> */}
-      <button onClick={() => console.log("Errors: ", errors)} type="button">
-        Pokaż błędy
+      <button type="button" onClick={() => console.log("Errors:", errors)}>
+        Błędy
       </button>
     </>
   );
