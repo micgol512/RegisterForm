@@ -1,4 +1,3 @@
-// import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,7 +7,7 @@ import {
   CoursePreferences,
   AddCV,
   DevExperience,
-} from "./index";
+} from "./index.js";
 import styles from "./styles/RegisterForm.module.css";
 
 const devExpSchema = z.object({
@@ -35,7 +34,7 @@ const registerSchema = z
       ),
     lastName: z
       .string()
-      .min(2, "Nazwisko jest za krótkie.")
+      .min(3, "Nazwisko jest za krótkie.")
       .regex(/^[A-ZĄĆĘŁŃÓŚŹŻ]/, "Nazwisko musi zaczynać się od wielkiej litery.")
       .regex(/^(?!.*\d)/, "Nazwisko nie może zawierać cyfr.")
       .regex(
@@ -49,13 +48,11 @@ const registerSchema = z
       .length(9, "Telefon musi mieć 9 cyfr"),
     typeLearning: z.string(),
     cursePref: z.array(z.string()).min(1, "Musisz wybrać co najmniej jedną opcję."),
-    imageCV: z.string().min(1, { message: "Wybierz plik z CV IMAGE" }),
-    // cv: z.object(),
     devExpCheckbox: z.boolean(),
     devExp: z.array(devExpSchema).optional(),
-    cv: z
-      .object({})
-      .refine((obj) => Object.keys(obj).length > 0, { message: "Wybierz plik z CV OBJ" }),
+    cv: z.any().refine((file) => file instanceof File, {
+      message: "Wybierz plik z CV Register",
+    }),
   })
   .refine((data) => !data.devExpCheckbox || (data.devExp && data.devExp.length > 0), {
     path: ["devExp"],
@@ -71,7 +68,6 @@ const RegisterForm = ({ setUsers, amountUsers }) => {
     control,
     formState: { errors },
     clearErrors,
-    setError,
     reset,
   } = useForm({
     resolver: zodResolver(registerSchema),
@@ -83,14 +79,12 @@ const RegisterForm = ({ setUsers, amountUsers }) => {
       phone: "",
       typeLearning: "",
       cursePref: [],
-      imageCV: "",
       devExpCheckbox: false,
       devExp: [],
-      cv: {},
+      cv: null,
     },
   });
   const onSubmit = (data) => {
-    //   data.preventDefault();
     setUsers([data]);
     // setUsers((prev) => [...prev, data]); //set it for array of users
     reset();
@@ -106,7 +100,6 @@ const RegisterForm = ({ setUsers, amountUsers }) => {
           setValue={setValue}
           getValues={getValues}
           clearErrors={clearErrors}
-          setError={setError}
         />
         <DevExperience
           register={register}
@@ -116,9 +109,6 @@ const RegisterForm = ({ setUsers, amountUsers }) => {
         />
         <StyledButton type="submit">Wyślij</StyledButton>
       </form>
-      <button type="button" onClick={() => console.log("Errors:", errors)}>
-        Błędy
-      </button>
     </>
   );
 };

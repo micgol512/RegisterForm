@@ -1,9 +1,6 @@
 .errors {
-  position: absolute;
   text-align: left;
-  left: 10px;
-  top: 13px;
+  margin: 0 0 0 10px;
   font-size: 10px;
   color: #ff0000;
-  margin-bottom: 0;
 }

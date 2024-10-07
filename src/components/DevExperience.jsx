@@ -1,10 +1,13 @@
 import { useState } from "react";
-import StyledButton from "./StyledButton";
-import AddDevExperience from "./AddDevExperience";
 import { useFieldArray } from "react-hook-form";
-import ErrorMessage from "./ErrorMessage";
-import StyledHeader from "./StyledHeader";
-import Wrapper from "./Wrapper";
+import {
+  StyledButton,
+  AddDevExperience,
+  ErrorMessage,
+  StyledHeader,
+  Wrapper,
+} from "./index.js";
+import styles from "./styles/DevExperience.module.css";
 
 const initialAddDevExp = {
   id: "",
@@ -14,32 +17,26 @@ const initialAddDevExp = {
 
 const DevExperience = ({ setValue, control, register, errors }) => {
   const [isCheck, setIsCheck] = useState(false);
-  const { fields, append, remove, replace } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "devExp",
   });
 
   const toggleAdditionalExp = (e) => {
-    // console.log("Check przed:", isCheck);
-
     setIsCheck(!isCheck);
-    // console.log("Check po:", isCheck);
-    if (e.target.checked) replace([]); //albo remove();
+    if (e.target.checked) remove();
   };
   return (
     <>
-      <StyledHeader className="header-neon">Doświadczenie</StyledHeader>
-      <Wrapper flex="row">
-        <label
-          htmlFor="devExpCheckbox"
-          className="flex flex-nowrap flex-row gap-1 items-center"
-        >
+      <StyledHeader>Doświadczenie</StyledHeader>
+      <Wrapper flexDirection="row">
+        <label htmlFor="devExpCheckbox" className={styles.label}>
           <input
             {...register("devExpCheckbox")}
             type="checkbox"
             name="devExpCheckbox"
             id="devExpCheckbox"
-            className="appearance-none h-4 w-4 bg-transparent border-solid border border-gray-700 rounded-full checked:bg-slate-500  checked:shadow-inner-center checked:shadow-gray-300"
+            className={styles.checkbox}
             onChange={toggleAdditionalExp}
           />
           Posiadam doświadczenie z progamowaniem.
@@ -76,16 +73,6 @@ const DevExperience = ({ setValue, control, register, errors }) => {
           )}
         </>
       )}
-      {/* <button
-        type="button"
-        className="bg-slate-500"
-        onClick={() => {
-          console.log("Pola: ", fields);
-          console.log("Błędy: ", errors);
-        }}
-      >
-        Pokaż pola
-      </button> */}
     </>
   );
 };

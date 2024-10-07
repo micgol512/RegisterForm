@@ -1,7 +1,7 @@
 import styles from "./styles/Wrapper.module.css";
-const Wrapper = ({ children, flow }) => {
+const Wrapper = ({ children, flexDirection, gap, justifyContent }) => {
   return (
-    <div style={flow ? { flexDirection: flow } : {}} className={styles.wrapper}>
+    <div style={{ flexDirection, gap, justifyContent }} className={styles.wrapper}>
       {children}
     </div>
   );

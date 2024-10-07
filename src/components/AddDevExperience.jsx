@@ -1,20 +1,14 @@
-import ErrorMessage from "./ErrorMessage";
-import StyledButton from "./StyledButton";
-import Wrapper from "./Wrapper";
-
+import { ErrorMessage, StyledButton, Wrapper } from "./index.js";
 import styles from "./styles/AddDevExperience.module.css";
-const AddDevExperience = ({ setValue, onClick, register, index, field, errors }) => {
+
+const AddDevExperience = ({ setValue, onClick, register, index, errors }) => {
   const handleChange = (e) => {
-    // console.log("Przekazane id: ", field.id);
-    // console.log("Przekazany index: ", index);
-    // console.log("Name:: ", e.target.name);
-    // console.log("Value: ", e.target.value);
     setValue(`devExp.${index}.${e.target.name}`, e.target.value);
   };
 
   return (
     <>
-      <Wrapper flow="row">
+      <Wrapper flexDirection="row">
         <Wrapper>
           <select
             className={styles.choseExp}

@@ -1,27 +1,19 @@
 import { useState } from "react";
-import StyledButton from "./StyledButton";
-import ErrorMessage from "./ErrorMessage";
-import Wrapper from "./Wrapper";
+import { StyledHeader, StyledButton, ErrorMessage, Wrapper } from "./index.js";
 import styles from "./styles/AddCV.module.css";
-import StyledHeader from "./StyledHeader";
-const AddCV = ({ register, errors, setValue, clearErrors, setError }) => {
-  const [file, setFile] = useState({});
 
+const AddCV = ({ register, errors, setValue, clearErrors }) => {
+  const [file, setFile] = useState({});
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-    if (selectedFile) {
-      setValue("imageCV", URL.createObjectURL(e.target.files[0]));
-      clearErrors("cv");
-    } else {
-      setValue("imageCV", "");
-      setError("cv", { message: "Wybierz plik z CV CHANGE", type: "custom" });
-    }
+    setValue("cv", selectedFile);
+    clearErrors("cv");
   };
   return (
     <>
-      <StyledHeader className="header-neon">Dodaj CV</StyledHeader>
-      <Wrapper flow="relative">
+      <StyledHeader>Dodaj CV</StyledHeader>
+      <Wrapper>
         <label htmlFor="cv" className={styles.label}>
           Załącz swoje CV w formie zdjęcia.
         </label>
@@ -36,20 +28,15 @@ const AddCV = ({ register, errors, setValue, clearErrors, setError }) => {
           className={styles.hidden}
           onChange={handleFileChange}
         />
-        <Wrapper flow="row">
+        <Wrapper flexDirection="row">
           <StyledButton onClick={() => document.getElementById("cv").click()}>
             Doddaj CV
           </StyledButton>
           <span className={styles.info}>
             {file?.name ? `Wybrano : "${file.name}"` : "Nie wybrano pliku..."}
           </span>
-          {/* {file ? console.log("FileKomponent:", file) : console.log("Nothing happend")} */}
         </Wrapper>
-        {errors?.cv && (
-          <ErrorMessage position="relative" top="-10px">
-            {errors.cv?.message}
-          </ErrorMessage>
-        )}
+        {errors?.cv && <ErrorMessage>{errors.cv?.message}</ErrorMessage>}
       </Wrapper>
     </>
   );

@@ -13,11 +13,11 @@
   padding: 0 5px;
   height: 25px;
   border-radius: 0.5rem;
-  border: 1px solid red;
-  color: red;
+  border: 1px solid #ff0000;
+  color: #ff0000;
 }
 .input:focus,
 .inputError:focus {
   outline: none;
-  background-color: white;
+  background-color: #ffffff;
 }

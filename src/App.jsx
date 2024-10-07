@@ -1,7 +1,6 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
+import { ResultPage, RegisterForm } from "./components";
 import "./App.css";
-import RegisterForm from "./components/RegisterForm";
-import { ResultPage } from "./components";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -16,5 +15,4 @@ function App() {
     </>
   );
 }
-
 export default App;

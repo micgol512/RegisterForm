@@ -1,10 +1,8 @@
-import ErrorMessage from "./ErrorMessage";
+import { Wrapper, ErrorMessage } from "./index.js";
 import styles from "./styles/InputField.module.css";
-import Wrapper from "./Wrapper";
-
 const InputField = ({ field, type = "text", register, errors, children }) => {
   return (
-    <Wrapper>
+    <Wrapper gap="0px">
       <input
         className={errors?.[field] ? styles.inputError : styles.input}
         {...register(field)}

@@ -1,6 +1,5 @@
-import StyledHeader from "./StyledHeader";
-import InputField from "./InputField";
-import Wrapper from "./Wrapper";
+import { StyledHeader, InputField, Wrapper } from "./index.js";
+
 const PersonalData = ({ register, errors }) => {
   return (
     <>
