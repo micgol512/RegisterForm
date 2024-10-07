@@ -1,0 +1,27 @@
+.label {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 5px;
+  align-items: center;
+}
+.checkbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  height: 1rem;
+  width: 1rem;
+  background-color: transparent;
+  border: 1px solid #2563eb;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.checkbox:checked::before {
+  content: "✔";
+  position: absolute;
+  scale: 1.5;
+  top: -0.4rem;
+  left: 0.25rem;
+  color: #2563eb;
+}

@@ -1,0 +1,20 @@
+.chosePref {
+  background-color: #d1d5db;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+}
+.options {
+  color: #5f5f5f;
+  padding: 2px 5px;
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.options:checked {
+  color: #d1d5db;
+  background-color: #5f5f5f;
+  margin: 1px;
+}
