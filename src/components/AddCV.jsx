@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyledHeader, StyledButton, ErrorMessage, Wrapper } from "./index.js";
+import { StyledHeader, StyledButton, ErrorMessage, Wrapper } from "./";
 import styles from "./styles/AddCV.module.css";
 
 const AddCV = ({ register, errors, setValue, clearErrors }) => {

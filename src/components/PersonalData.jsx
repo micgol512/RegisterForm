@@ -1,4 +1,4 @@
-import { StyledHeader, InputField, Wrapper } from "./index.js";
+import { StyledHeader, InputField, Wrapper } from "./";
 
 const PersonalData = ({ register, errors }) => {
   return (

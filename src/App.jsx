@@ -3,15 +3,14 @@ import { ResultPage, RegisterForm } from "./components";
 import "./App.css";
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState({});
   return (
     <>
-      {users.length === 0 ? (
-        <RegisterForm setUsers={setUsers} amountUsers={users.length} />
+      {Object.keys(user).length === 0 ? (
+        <RegisterForm setUser={setUser} />
       ) : (
-        <ResultPage user={users[0]} />
+        <ResultPage user={user} />
       )}
-      <button onClick={() => console.log("Users:", users)}> Users</button>
     </>
   );
 }

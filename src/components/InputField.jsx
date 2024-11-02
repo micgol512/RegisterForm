@@ -1,4 +1,4 @@
-import { Wrapper, ErrorMessage } from "./index.js";
+import { Wrapper, ErrorMessage } from "./";
 import styles from "./styles/InputField.module.css";
 const InputField = ({ field, type = "text", register, errors, children }) => {
   return (

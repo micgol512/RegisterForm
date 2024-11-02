@@ -1,13 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import {
-  StyledButton,
-  PersonalData,
-  CoursePreferences,
-  AddCV,
-  DevExperience,
-} from "./index.js";
+import { StyledButton, PersonalData, CoursePreferences, AddCV, DevExperience } from "./";
 import styles from "./styles/RegisterForm.module.css";
 
 const devExpSchema = z.object({
@@ -18,7 +12,6 @@ const devExpSchema = z.object({
 
 const registerSchema = z
   .object({
-    id: z.number(),
     firstName: z
       .string()
       .min(3, "Imię jest za krótkie")
@@ -59,7 +52,7 @@ const registerSchema = z
     message: "Musisz dodać co najmniej jedno doświadczenie.",
   });
 
-const RegisterForm = ({ setUsers, amountUsers }) => {
+const RegisterForm = ({ setUser }) => {
   const {
     register,
     handleSubmit,
@@ -72,7 +65,6 @@ const RegisterForm = ({ setUsers, amountUsers }) => {
   } = useForm({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      id: amountUsers + 1,
       firstName: "",
       lastName: "",
       email: "",
@@ -85,31 +77,28 @@ const RegisterForm = ({ setUsers, amountUsers }) => {
     },
   });
   const onSubmit = (data) => {
-    setUsers([data]);
-    // setUsers((prev) => [...prev, data]); //set it for array of users
+    setUser(data);
     reset();
   };
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <PersonalData register={register} errors={errors} />
-        <CoursePreferences register={register} errors={errors} />
-        <AddCV
-          register={register}
-          errors={errors}
-          setValue={setValue}
-          getValues={getValues}
-          clearErrors={clearErrors}
-        />
-        <DevExperience
-          register={register}
-          errors={errors}
-          setValue={setValue}
-          control={control}
-        />
-        <StyledButton type="submit">Wyślij</StyledButton>
-      </form>
-    </>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <PersonalData register={register} errors={errors} />
+      <CoursePreferences register={register} errors={errors} />
+      <AddCV
+        register={register}
+        errors={errors}
+        setValue={setValue}
+        getValues={getValues}
+        clearErrors={clearErrors}
+      />
+      <DevExperience
+        register={register}
+        errors={errors}
+        setValue={setValue}
+        control={control}
+      />
+      <StyledButton type="submit">Wyślij</StyledButton>
+    </form>
   );
 };
 export default RegisterForm;

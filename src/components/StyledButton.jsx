@@ -5,18 +5,15 @@ const StyledButton = ({
   type = "button",
   color = "black",
   backgroundColor,
-}) => {
-  return (
-    <>
-      <button
-        type={type}
-        onClick={onClick}
-        style={{ color, backgroundColor }}
-        className={styles.button}
-      >
-        {children}
-      </button>
-    </>
-  );
-};
+}) => (
+  <button
+    type={type}
+    onClick={onClick}
+    style={{ color, backgroundColor }}
+    className={styles.button}
+  >
+    {children}
+  </button>
+);
+
 export default StyledButton;
