@@ -1,4 +1,5 @@
 import styles from "./styles/StyledRadio.module.css";
+
 const StyledRadio = ({ register, children, name, value, id, check }) => (
   <label htmlFor={id} className={styles.label}>
     <input

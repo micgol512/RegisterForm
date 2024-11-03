@@ -1,4 +1,5 @@
 import styles from "./styles/StyledButton.module.css";
+
 const StyledButton = ({
   onClick,
   children,
