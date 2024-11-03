@@ -1,0 +1,15 @@
+.lapel {
+  margin-bottom: 0;
+}
+.hidden {
+  display: none;
+}
+.info {
+  color: #00000080;
+  scale: 0.8;
+  border-left: 5px ridge #0000004d;
+  border-right: 5px ridge #0000004d;
+  border-radius: 8px;
+  height: auto;
+  padding: 2px 5px;
+}
